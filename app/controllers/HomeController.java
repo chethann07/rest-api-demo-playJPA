@@ -27,12 +27,12 @@ public class HomeController extends Controller {
 
     public Result createDataset(Http.Request request) {
         datasetService.createDataset(request);
-        return ok(Json.toJson(JavaUtility.getResponse("dataset created", "201")));
+        return created(Json.toJson(JavaUtility.getResponse("dataset created", "201")));
     }
 
     public Result updateDataset(String id, Http.Request request) {
         datasetService.updateDataset(id, request);
-        return ok(Json.toJson(JavaUtility.getResponse("dataset updated", "201")));
+        return created(Json.toJson(JavaUtility.getResponse("dataset updated", "201")));
     }
 
 
