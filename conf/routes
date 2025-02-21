@@ -1,0 +1,13 @@
+# Routes
+
+
+GET     /get                            controllers.HomeController.getAllDatasets
+
+GET     /get/:id                        controllers.HomeController.getDatasetById(id: String)
+
+POST    /create                         controllers.HomeController.createDataset(request: play.mvc.Http.Request)
+
+PUT     /update/:id                     controllers.HomeController.updateDataset(id: String, request: play.mvc.Http.Request)
+
+DELETE  /delete/:id                     controllers.HomeController.deleteDatasetById(id: String)
+
