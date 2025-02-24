@@ -1,26 +1,23 @@
 package utility;
 
-import com.google.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transaction;
-
+import com.fasterxml.jackson.databind.JsonNode;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class JavaUtility {
 
-    private final EntityManager entityManager;
-
-    @Inject
-    public JavaUtility(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    public static Map<String, String> getResponse(String message, String status){
-        Map<String, String> response = new HashMap<String, String>();
-        response.put("message", message);
-        response.put("status", status);
-        response.put("timestamp", LocalDateTime.now().toString());
+    public static Map<String, Object> getResponse(String status, String errorMessage, String responseCode, JsonNode result){
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("id", "api.read");
+        response.put("ver", "1.0");
+        response.put("ts", LocalDateTime.now().toString());
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("resmsgid", UUID.randomUUID().toString());
+        params.put("status", status);
+        params.put("errmsg", errorMessage);
+        response.put("params", params);
+        response.put("responseCode", responseCode);
+        response.put("result", result);
         return response;
     }
 
