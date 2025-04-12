@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import utility.JavaUtility;
 
+import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -41,6 +42,10 @@ public class GlobalErrorHandler implements HttpErrorHandler{
         } else if (exception instanceof NullPointerException || exception instanceof NotFoundException) {
             return CompletableFuture.completedFuture(
                     Results.badRequest(Json.toJson(JavaUtility.getResponse("failure", exception.getMessage(), "404", null)))
+            );
+        } else if (exception instanceof IllegalStateException || exception instanceof SQLException) {
+            return CompletableFuture.completedFuture(
+                    Results.internalServerError(Json.toJson(JavaUtility.getResponse("failure", exception.getMessage(), "500", null)))
             );
         } else {
             return CompletableFuture.completedFuture(
